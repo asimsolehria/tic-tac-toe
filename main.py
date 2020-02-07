@@ -1,16 +1,10 @@
+from random import randint
+
 board = [" - "] * 9
 player = " "
 symbol = ' '
 player1 = input("Enter Player 1 name : ")
-while player1 == '':
-    print("Player name can't be Empty! ")
-    player1 = input("Enter Player 1 name : ")
-
 player2 = input("Enter Player 2 name : ")
-while player2 == '':
-    print("Player name can't be Empty! ")
-    player2 = input("Enter Player 2 name : ")
-
 winner = " "
 Tie = 0
 
@@ -24,8 +18,15 @@ def drawBoard():
 def toss():
     global player
     global symbol
-    player = player2
-    symbol = 'X'
+    number = randint(1, 2)
+    if number == 1:
+        player = player1
+    else:
+        player = player2
+    if player == player1:
+        symbol = 'X'
+    else:
+        symbol = 'O'
     print("It is ", player, " 's turn \n")
 
 
@@ -40,7 +41,7 @@ def play_game():
             print(player2, " won the game!")
 
             break
-        player = player2
+
         markSymbol()
         checkWin()
         checkTie()
@@ -55,16 +56,12 @@ def markSymbol():
     while position < 1 or position > 9:
         print("\n Invalid Input")
         position = int(input("Chose your Position from 1-9 "))
-
     position = position - 1
 
     while board[position] != " - ":
 
         print("\n Invalid Position, Chose another position")
         position = int(input("Chose your Position from 1-9 "))
-        while position < 0 or position > 9:
-            print("\n Invalid Input")
-            position = int(input("Chose your Position from 1-9 "))
         position = position - 1
     else:
         board[position] = symbol
@@ -99,13 +96,13 @@ def checkWin():
 def handlePlayer():
     global player
     global symbol
-    if player == player1 and symbol == 'O':
+    if player == player1 and symbol == 'X':
         player = player2
-        symbol = 'X'
+        symbol = 'O'
 
-    elif player == player2 and symbol == "X":
+    elif player == player2 and symbol == "O":
         player = player1
-        symbol = "O"
+        symbol = "X"
     print("It is ", player, "'s turn")
 
 
